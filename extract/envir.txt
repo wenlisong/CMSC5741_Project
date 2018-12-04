@@ -1,0 +1,15 @@
+1
+git clone https://github.com/davisking/dlib.git
+Build the main dlib library (optional if you just want to use Python):
+
+2
+cd dlib
+mkdir build; cd build; cmake ..; cmake --build .
+Build and install the Python extensions:
+
+3
+cd ..
+python3 setup.py install
+
+4
+pip3 install face_recognition
