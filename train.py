@@ -1,5 +1,5 @@
 import time
-from lshash import LSHash
+from lshash import *
 import numpy as np
 import os
 
@@ -7,7 +7,7 @@ import os
 
 lsh = LSHash(16, 128, storage_config={"redis": {"host": 'localhost', "port": 6379, "db": 0}},
              matrices_filename="./matrices.npz")
-feature_dir = "./feature/"
+feature_dir = ".data/feature/"
 counter = 0
 start = time.time()
 for file in os.listdir(feature_dir):

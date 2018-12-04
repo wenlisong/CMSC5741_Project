@@ -2,7 +2,7 @@ import numpy as np
 from lshash import LSHash
 import json
 
-feature_dir = "./feature/"
+feature_dir = "./data/feature/"
 sample = np.loadtxt(feature_dir + "1028975_1983-07-06_2012.jpg.txt")
 lsh = LSHash(16, 128, storage_config={"redis": {"host": 'localhost', "port": 6379, "db": 0}},
              matrices_filename="./matrices.npz")

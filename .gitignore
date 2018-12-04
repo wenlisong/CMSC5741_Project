@@ -1,4 +1,4 @@
-feature/*
-raw/*
+data/feature/*
+data/raw/*
 .idea/*
 .DS_Store
