@@ -1,5 +1,5 @@
 import numpy as np
-from lshash import LSHash
+from lshash.lshash import LSHash
 import json
 
 feature_dir = "./data/feature/"
