@@ -1,6 +1,5 @@
 import time
-
-from lshash.lshash import LSHash
+from lsh.lshash import *
 import json
 import os
 import face_recognition
@@ -18,11 +17,13 @@ for file in os.listdir(sample_dir):
         # Extract face feature
         face_feature = encodings[0]
         # Query similar images from redis
-        result = lsh.query(face_feature, num_results=5)
+        result = lsh.query(face_feature, num_results=5, distance_func="norm")
 
         # Print top similar images
         for rank, item in enumerate(result, start=1):
-            img_path = json.loads(item[0])[1]
+            img_info = json.loads(item[0])
+            # img_feature = np.asarray(img_info[0])
+            img_path = img_info[1]
             distance = item[1]
             print("Top #%d similar image:%s, The distance is:%f" % (rank, img_path, distance))
         print("Time cost:%s\n" % str(time.time() - start))

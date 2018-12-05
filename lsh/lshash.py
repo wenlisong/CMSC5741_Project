@@ -253,6 +253,8 @@ class LSHash(object):
                 d_func = LSHash.cosine_dist
             elif distance_func == "l1norm":
                 d_func = LSHash.l1norm_dist
+            elif distance_func == "norm":
+                d_func = LSHash.norm
             else:
                 raise ValueError("The distance function name is invalid.")
 
@@ -299,3 +301,7 @@ class LSHash(object):
     @staticmethod
     def cosine_dist(x, y):
         return 1 - np.dot(x, y) / ((np.dot(x, x) * np.dot(y, y)) ** 0.5)
+
+    @staticmethod
+    def norm(x, y):
+        return np.linalg.norm(x - y)

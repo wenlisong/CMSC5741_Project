@@ -1,5 +1,5 @@
 import time
-from lshash.lshash import *
+from lsh.lshash import *
 import numpy as np
 import os
 

@@ -1,0 +1,1 @@
+from lshash import LSHash
