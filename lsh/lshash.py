@@ -204,6 +204,9 @@ class LSHash(object):
             table.append_val(self._hash(self.uniform_planes[i], input_point),
                              value)
 
+    def hash(self, query_point):
+        return self._hash(self.uniform_planes[0], query_point)
+
     def query(self, query_point, num_results=None, distance_func=None):
         """ Takes `query_point` which is either a tuple or a list of numbers,
         returns `num_results` of results as a list of tuples that are ranked

@@ -6,6 +6,7 @@
 * redis service detect: `redis-cli ping`
 * redis shutdown: `redis-cli shutdown`
 * redis get all keys: `redis-cli keys "*"`
+* redis delete all data: `redis-cli FLUSHALL`
 
 ## Unix
 

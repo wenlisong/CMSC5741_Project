@@ -1,11 +1,11 @@
 import time
 from lsh.lshash import *
+from constants import *
 import json
 import os
 import face_recognition
 
-lsh = LSHash(16, 128, storage_config={"redis": {"host": 'localhost', "port": 6379, "db": 0}},
-             matrices_filename="./matrices.npz")
+lsh = LSHash(HASH_SIZE, INPUT_DIMS, storage_config=STORAGE_CONFIG, matrices_filename=MATRICES_NAME)
 
 sample_dir = "./data/sample/"
 for file in os.listdir(sample_dir):
