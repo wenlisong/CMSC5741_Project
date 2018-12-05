@@ -1,9 +1,8 @@
-from django.conf.urls import url, include
+from django.urls import path, include
 
-from Similarity import views
-from Similarity.views import index
+from similarity import views
 
 urlpatterns = [
-    url(r'^upload/$', views.upload, name='upload'),
-    url(r'^index/$', views.index, name='index')
+    path('upload/', views.upload, name='upload'),
+    path('index/', views.index, name='index'),
 ]
