@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+名人图片相识查找
+{% endblock %}
+{% block content %}
+<form id='image-form' method="POST">
+    {% csrf_token %}
+    <input type="file" name="img">
+    <input type="submit" name="submit" value="upload"></button>
+</form>
+<img id='result'></img>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+    $('#image-form').submit(function(){
+        var file_obj = $("input[name='img']")[0].files[0];
+        $('#suc').text('kadsf')
+        var form_obj = new FormData();
+        form_obj.append("img", file_obj);
+        $.ajaxSetup({                     //设置csrf_token
+            beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", $.cookie("csrftoken"));
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "{% url 'upload' %}",
+            data: form_obj,
+            processData: false,
+            contentType: false,
+            success: function(data){
+                $("#result").attr('src', data['file_path']);
+            }
+        });
+        return false;
+    });
+</script>
+{% endblock %}
