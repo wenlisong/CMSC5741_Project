@@ -1,15 +1,28 @@
-import numpy as np
+import time
+
 from lshash.lshash import LSHash
 import json
+import os
+import face_recognition
 
-feature_dir = "./data/feature/"
-sample = np.loadtxt(feature_dir + "1028975_1983-07-06_2012.jpg.txt")
 lsh = LSHash(16, 128, storage_config={"redis": {"host": 'localhost', "port": 6379, "db": 0}},
              matrices_filename="./matrices.npz")
-result = lsh.query(sample, num_results=10)
 
-# Print Top Similar Images
-for rank, item in enumerate(result, start=1):
-    img_path = json.loads(item[0])[1]
-    distance = item[1]
-    print("Top #%d similar image:%s, The distance is:%f" % (rank, img_path, distance))
+sample_dir = "./data/sample/"
+for file in os.listdir(sample_dir):
+    start = time.time()
+    face_image = face_recognition.load_image_file(os.path.join(sample_dir, file))
+    encodings = face_recognition.face_encodings(face_image)
+    if len(encodings):
+        print("Start extract face image and query:%s" % file)
+        # Extract face feature
+        face_feature = encodings[0]
+        # Query similar images from redis
+        result = lsh.query(face_feature, num_results=5)
+
+        # Print top similar images
+        for rank, item in enumerate(result, start=1):
+            img_path = json.loads(item[0])[1]
+            distance = item[1]
+            print("Top #%d similar image:%s, The distance is:%f" % (rank, img_path, distance))
+        print("Time cost:%s\n" % str(time.time() - start))
