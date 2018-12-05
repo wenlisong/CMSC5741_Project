@@ -20,10 +20,14 @@ def upload(request):
             for chunk in img_obj.chunks(chunk_size=1024):
                 f.write(chunk)
         feature_path = extract(img_obj.name)
+        print(feature_path)
         if feature_path:
-            query(feature_path)
-            res['upload_img'] = os.path.join('/static/images', img_obj.name)
-            return JsonResponse(res)
+            # query(feature_path)
+            res['upload_img'] = [os.path.join('/static/images', img_obj.name)] * 10
+        else:
+            res['status'] = "fail"
+        return JsonResponse(res)
+
 def query(feature_path):
     sample = np.loadtxt(feature_path)
     lsh = LSHash(16, 128, storage_config={"redis": {"host": 'localhost', "port": 8080, "db": 0}},

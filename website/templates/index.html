@@ -9,7 +9,8 @@
     <input type="file" name="img">
     <input type="submit" name="submit" value="upload"></button>
 </form>
-<img id='result'></img>
+<div id='result'>
+</div>
 {% endblock %}
 
 {% block javascript %}
@@ -32,10 +33,34 @@
             processData: false,
             contentType: false,
             success: function(data){
-                $("#result").attr('src', data['upload_img']);
+                CreateTable('result',2,data['upload_img'].length/2);
+                var i=0;
+                data['upload_img'].forEach(elem => {
+                    $("#img"+i).attr('src', elem);
+                    i++;
+                });
+                
             }
         });
         return false;
     });
+    
+    function CreateTable(tableid,rowCount,cellCount)
+    {
+        $('#'+tableid).empty();
+        var table=$("<table border=\"1\">");
+        table.appendTo($("#"+tableid));
+        for(var i=0;i<rowCount;i++)
+        {
+            var tr=$("<tr></tr>");
+            tr.appendTo(table);
+            for(var j=0;j<cellCount;j++)
+            {
+                var td=$("<td><img id='img"+(i*cellCount+j)+"'></td>");
+                td.appendTo(tr);
+            }
+        }
+        $("#createtable").append("</table>");
+     }
 </script>
 {% endblock %}
