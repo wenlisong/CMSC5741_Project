@@ -33,13 +33,25 @@
             processData: false,
             contentType: false,
             success: function(data){
-                CreateTable('result',2,data['upload_img'].length/2);
-                var i=0;
-                data['upload_img'].forEach(elem => {
-                    $("#img"+i).attr('src', elem);
-                    i++;
-                });
-                
+                if(data['status']=="fail")
+                {
+                    alert("Don't find face in the image!");
+                }
+                else if(data['status']=="success")
+                {
+                    console.log(data)
+                    if(data['query_results'].length==0)
+                    {
+                        alert("No similar celebrity in our database!");
+                        return false;
+                    }
+                    CreateTable('result',2,data['query_results'].length/2);
+                    var i=0;
+                    data['query_results'].forEach(elem => {
+                        $("#img"+i).attr('src', elem);
+                        i++;
+                    });
+                }
             }
         });
         return false;
