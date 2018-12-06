@@ -4,8 +4,8 @@ import json
 import os
 import face_recognition
 import numpy as np
-from package.lsh.lshash import *
-from package.lsh.constants import *
+from lshash import *
+from constants import *
 import pdb
 
 def index(request):
