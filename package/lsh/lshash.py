@@ -7,6 +7,7 @@
 import os
 import json
 import numpy as np
+import scipy.spatial.distance as dist
 
 from package.lsh.storage import storage
 
@@ -147,7 +148,7 @@ class LSHash(object):
         the original input points stored, and returns the original input point
         in numpy array format.
         """
-        if isinstance(json_or_tuple, basestring):
+        if isinstance(json_or_tuple, bytes):
             # JSON-serialized in the case of Redis
             try:
                 # Return the point stored as list, without the extra data
@@ -184,25 +185,35 @@ class LSHash(object):
 
         :param input_point:
             A list, or tuple, or numpy ndarray object that contains numbers
-            only. The dimension needs to be 1 * `input_dim`.
+            only. The dimension needs to be 1 or 2 * `input_dim`.
             This object will be converted to Python tuple and stored in the
             selected storage.
         :param extra_data:
             (optional) Needs to be a JSON-serializable object: list, dicts and
             basic types such as strings and integers.
         """
+        dim = 0
 
         if isinstance(input_point, np.ndarray):
+            dim = input_point.ndim
             input_point = input_point.tolist()
+        elif isinstance(input_point, list):
+            dim = np.array(input_point).ndim
 
         if extra_data:
             value = (tuple(input_point), extra_data)
         else:
             value = tuple(input_point)
 
-        for i, table in enumerate(self.hash_tables):
-            table.append_val(self._hash(self.uniform_planes[i], input_point),
-                             value)
+        if dim == 2:
+            for i in range(len(input_point)):
+                for j, table in enumerate(self.hash_tables):
+                    table.append_val(self._hash(self.uniform_planes[j], input_point[i]),
+                                     tuple(value[i]))
+        else:
+            for i, table in enumerate(self.hash_tables):
+                table.append_val(self._hash(self.uniform_planes[i], input_point),
+                                 value)
 
     def hash(self, query_point):
         lst = []
@@ -259,6 +270,8 @@ class LSHash(object):
                 d_func = LSHash.cosine_dist
             elif distance_func == "l1norm":
                 d_func = LSHash.l1norm_dist
+            elif distance_func == "jaccard":
+                d_func = LSHash.jaccard_dist
             elif distance_func == "norm":
                 d_func = LSHash.norm
             else:
@@ -303,6 +316,11 @@ class LSHash(object):
     @staticmethod
     def l1norm_dist(x, y):
         return sum(abs(x - y))
+
+    @staticmethod
+    def jaccard_dist(x, y):
+        matV = np.array([x, y])
+        return dist.pdist(matV, 'jaccard')[0]
 
     @staticmethod
     def cosine_dist(x, y):

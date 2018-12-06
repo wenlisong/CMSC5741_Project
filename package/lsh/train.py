@@ -1,12 +1,12 @@
 import time
-from lsh.lshash import *
-from constants import *
+from package.lsh.lshash import *
+from package.lsh.constants import *
 import numpy as np
 import os
 
 lsh = LSHash(HASH_SIZE, INPUT_DIMS, num_hashtables=NUMS_TABLE, storage_config=STORAGE_CONFIG,
              matrices_filename=MATRICES_NAME)
-feature_dir = "./data/feature/"
+feature_dir = FEATURE_DIR
 counter = 0
 start = time.time()
 for file in os.listdir(feature_dir):

@@ -1,10 +1,10 @@
 import face_recognition
-from lsh.lshash import *
-from constants import *
+from package.lsh.lshash import *
+from package.lsh.constants import *
 
 lsh = LSHash(HASH_SIZE, INPUT_DIMS, num_hashtables=NUMS_TABLE, storage_config=STORAGE_CONFIG,
              matrices_filename=MATRICES_NAME)
-sample_dir = "./data/sample/"
+sample_dir = SAMPLE_DIR
 
 sample_image = face_recognition.load_image_file(os.path.join(sample_dir, "sample.jpg"))
 sample_feature = face_recognition.face_encodings(sample_image)[0]

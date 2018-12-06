@@ -1,13 +1,13 @@
 import time
-from lsh.lshash import *
-from constants import *
+from package.lsh.lshash import *
+from package.lsh.constants import *
 import json
 import os
 import face_recognition
 
 lsh = LSHash(HASH_SIZE, INPUT_DIMS, num_hashtables=NUMS_TABLE, storage_config=STORAGE_CONFIG,
              matrices_filename=MATRICES_NAME)
-sample_dir = "./data/sample/"
+sample_dir = SAMPLE_DIR
 for file in os.listdir(sample_dir):
     start = time.time()
     face_image = face_recognition.load_image_file(os.path.join(sample_dir, file))

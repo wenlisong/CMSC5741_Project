@@ -42,6 +42,7 @@ def query(feature_path):
         img_path = img_info[1]
         distance = item[1]
         images_info.append({'path': img_path, 'distance': distance, 'rank':rank})
+    print(images_info)
     return images_info
     
 
