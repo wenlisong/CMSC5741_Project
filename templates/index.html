@@ -4,19 +4,41 @@
 名人图片相识查找
 {% endblock %}
 {% block content %}
-<form id='image-form' method="POST">
-    {% csrf_token %}
-    <input type="file" name="img" onchange="showPreview(this)"/>
-    <input type="submit" name="submit" value="upload"/>
-</form>
-<div>
-    <p>Origin Image</p>
-    <img id='origin_img' />
-</div>
-<div>
-    <p>Similar Celebrity</p>
-    <div id='result'>
-</div>
+<div class="container" style="margin-top:30px">
+    <div class="row">
+        <div class="col-sm-4">
+            <h2>Try!</h2>
+            <!-- <h5>Photo you upload:</h5> -->
+            <!-- <img  class="img-responsive"></img> -->
+            <div class="card" style="width:auto">
+                <img class="card-img-top" id='origin_img' src="/static/images/img_avatar1.png" style="width:100%">
+                <div class="card-body">
+                    <h4 class="card-title">Photo you upload</h4>
+                    <form id='image-form' method="POST">
+                        {% csrf_token %}
+                        <input type="file" class="form-control-file border" name="img" onchange="showPreview(this)" alt="Upload" />
+                        <br>
+                        <input type="submit" class="btn btn-primary" name="submit" value="Search" />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <h2>Search Results</h2>
+            <h5>TOP 5</h5>
+            <div id='result'></div>
+            <!-- <p>Above are top 5 similar celebrities.</p>
+            <br> -->
+            <!-- <h2>TITLE HEADING</h2>
+            <h5>Title description, Sep 2, 2017</h5>
+            <div class="fakeimg">Fake Image</div>
+            <p>Some text..</p>
+            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco.</p> -->
+        </div>
+    </div>
+    <div class="row-4"></div>
 </div>
 {% endblock %}
 
@@ -25,22 +47,22 @@
 <script type="text/javascript">
     function showPreview(source) {
         var file = source.files[0];
-        if(window.FileReader) {
-        var fr = new FileReader();
-        fr.onloadend = function(e) {
-            $('#origin_img').attr('src', e.target.result);
-        }
-        fr.readAsDataURL(file);
+        if (window.FileReader) {
+            var fr = new FileReader();
+            fr.onloadend = function (e) {
+                $('#origin_img').attr('src', e.target.result);
+            }
+            fr.readAsDataURL(file);
         }
     }
-    $('#image-form').submit(function(){
+    $('#image-form').submit(function () {
         var file_obj = $("input[name='img']")[0].files[0];
         $('#suc').text('kadsf')
         var form_obj = new FormData();
         form_obj.append("img", file_obj);
         $.ajaxSetup({                     //设置csrf_token
             beforeSend: function (xhr, settings) {
-                    xhr.setRequestHeader("X-CSRFToken", $.cookie("csrftoken"));
+                xhr.setRequestHeader("X-CSRFToken", $.cookie("csrftoken"));
             }
         });
         $.ajax({
@@ -49,23 +71,20 @@
             data: form_obj,
             processData: false,
             contentType: false,
-            success: function(data){
-                if(data['status']=="fail")
-                {
+            success: function (data) {
+                if (data['status'] == "fail") {
                     alert("Don't find face in the image!");
                 }
-                else if(data['status']=="success")
-                {
+                else if (data['status'] == "success") {
                     console.log(data)
-                    if(data['query_results'].length==0)
-                    {
+                    if (data['query_results'].length == 0) {
                         alert("No similar celebrity in our database!");
                         return false;
                     }
-                    CreateTable('result',1,5);
-                    var i=0;
+                    CreateTable('result', 1, 5);
+                    var i = 0;
                     data['query_results'].forEach(elem => {
-                        $("#img"+i).attr('src', elem['path']);
+                        $("#img" + i).attr('src', elem['path']);
                         i++;
                     });
                 }
@@ -73,23 +92,20 @@
         });
         return false;
     });
-    
-    function CreateTable(tableid,rowCount,cellCount)
-    {
-        $('#'+tableid).empty();
-        var table=$("<table border=\"1\">");
-        table.appendTo($("#"+tableid));
-        for(var i=0;i<rowCount;i++)
-        {
-            var tr=$("<tr></tr>");
+
+    function CreateTable(tableid, rowCount, cellCount) {
+        $('#' + tableid).empty();
+        var table = $("<table border=\"0\">");
+        table.appendTo($("#" + tableid));
+        for (var i = 0; i < rowCount; i++) {
+            var tr = $("<tr></tr>");
             tr.appendTo(table);
-            for(var j=0;j<cellCount;j++)
-            {
-                var td=$("<td><img id='img"+(i*cellCount+j)+"'></td>");
+            for (var j = 0; j < cellCount; j++) {
+                var td = $("<td><img id='img" + (i * cellCount + j) + "' class='img-responsive'></td>");
                 td.appendTo(tr);
             }
         }
         $("#createtable").append("</table>");
-     }
+    }
 </script>
 {% endblock %}

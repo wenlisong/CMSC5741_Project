@@ -6,5 +6,4 @@ data/raw/*
 *.pyc
 __pycache__/
 *.rdb
-static/images
-static/feature
+static/data/
