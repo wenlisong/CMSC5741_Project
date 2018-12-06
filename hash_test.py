@@ -2,7 +2,8 @@ import face_recognition
 from lsh.lshash import *
 from constants import *
 
-lsh = LSHash(HASH_SIZE, INPUT_DIMS, storage_config=STORAGE_CONFIG, matrices_filename=MATRICES_NAME)
+lsh = LSHash(HASH_SIZE, INPUT_DIMS, num_hashtables=NUMS_TABLE, storage_config=STORAGE_CONFIG,
+             matrices_filename=MATRICES_NAME)
 sample_dir = "./data/sample/"
 
 sample_image = face_recognition.load_image_file(os.path.join(sample_dir, "sample.jpg"))

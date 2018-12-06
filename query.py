@@ -5,8 +5,8 @@ import json
 import os
 import face_recognition
 
-lsh = LSHash(HASH_SIZE, INPUT_DIMS, storage_config=STORAGE_CONFIG, matrices_filename=MATRICES_NAME)
-
+lsh = LSHash(HASH_SIZE, INPUT_DIMS, num_hashtables=NUMS_TABLE, storage_config=STORAGE_CONFIG,
+             matrices_filename=MATRICES_NAME)
 sample_dir = "./data/sample/"
 for file in os.listdir(sample_dir):
     start = time.time()

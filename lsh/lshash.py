@@ -205,7 +205,10 @@ class LSHash(object):
                              value)
 
     def hash(self, query_point):
-        return self._hash(self.uniform_planes[0], query_point)
+        lst = []
+        for i, table in enumerate(self.hash_tables):
+            lst.append(self._hash(self.uniform_planes[i], query_point))
+        return lst
 
     def query(self, query_point, num_results=None, distance_func=None):
         """ Takes `query_point` which is either a tuple or a list of numbers,
