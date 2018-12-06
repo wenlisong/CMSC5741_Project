@@ -60,3 +60,6 @@ Top #4 similar image:3934694_1969-11-19_2014.jpg.txt, The distance is:0.535654
 Top #5 similar image:617029_1917-04-16_1962.jpg.txt, The distance is:0.535810
 Time cost:0.46483206749
 ```
+
+## Dataset
+IMDB-WIKI – 500k+ face images with age and gender labels[website](https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/)

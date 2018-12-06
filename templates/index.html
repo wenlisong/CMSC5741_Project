@@ -6,16 +6,33 @@
 {% block content %}
 <form id='image-form' method="POST">
     {% csrf_token %}
-    <input type="file" name="img">
-    <input type="submit" name="submit" value="upload"></button>
+    <input type="file" name="img" onchange="showPreview(this)"/>
+    <input type="submit" name="submit" value="upload"/>
 </form>
-<div id='result'>
+<div>
+    <p>Origin Image</p>
+    <img id='origin_img' />
+</div>
+<div>
+    <p>Similar Celebrity</p>
+    <div id='result'>
+</div>
 </div>
 {% endblock %}
 
 {% block javascript %}
 <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
 <script type="text/javascript">
+    function showPreview(source) {
+        var file = source.files[0];
+        if(window.FileReader) {
+        var fr = new FileReader();
+        fr.onloadend = function(e) {
+            $('#origin_img').attr('src', e.target.result);
+        }
+        fr.readAsDataURL(file);
+        }
+    }
     $('#image-form').submit(function(){
         var file_obj = $("input[name='img']")[0].files[0];
         $('#suc').text('kadsf')
@@ -45,10 +62,10 @@
                         alert("No similar celebrity in our database!");
                         return false;
                     }
-                    CreateTable('result',2,data['query_results'].length/2);
+                    CreateTable('result',1,5);
                     var i=0;
                     data['query_results'].forEach(elem => {
-                        $("#img"+i).attr('src', elem);
+                        $("#img"+i).attr('src', elem['path']);
                         i++;
                     });
                 }

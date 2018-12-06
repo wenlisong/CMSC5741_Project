@@ -39,12 +39,12 @@ def query(feature_path):
     images_info = []
     for rank, item in enumerate(result, start=1):
         img_info = json.loads(item[0])
-        img_path = img_info[1]
+        # absolute path, remove '.txt' at end
+        img_path = 'static/images/{0}'.format(img_info[1].rstrip('.txt'))
         distance = item[1]
         images_info.append({'path': img_path, 'distance': distance, 'rank':rank})
     print(images_info)
     return images_info
-    
 
 def extract(image_name):
     cwd = os.getcwd() # CMSC5741_Project/website
