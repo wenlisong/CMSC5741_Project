@@ -26,19 +26,10 @@
         <div class="col-sm-8">
             <h2>Search Results</h2>
             <h5>TOP 5</h5>
-            <div id='result'></div>
-            <!-- <p>Above are top 5 similar celebrities.</p>
-            <br> -->
-            <!-- <h2>TITLE HEADING</h2>
-            <h5>Title description, Sep 2, 2017</h5>
-            <div class="fakeimg">Fake Image</div>
-            <p>Some text..</p>
-            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco.</p> -->
+            <div id='result'>
+            </div>
         </div>
     </div>
-    <div class="row-4"></div>
 </div>
 {% endblock %}
 
@@ -81,7 +72,7 @@
                         alert("No similar celebrity in our database!");
                         return false;
                     }
-                    CreateTable('result', 1, 5);
+                    addImages('result', data['query_results'].length);
                     var i = 0;
                     data['query_results'].forEach(elem => {
                         $("#img" + i).attr('src', elem['path']);
@@ -93,19 +84,22 @@
         return false;
     });
 
-    function CreateTable(tableid, rowCount, cellCount) {
-        $('#' + tableid).empty();
-        var table = $("<table border=\"0\">");
-        table.appendTo($("#" + tableid));
-        for (var i = 0; i < rowCount; i++) {
-            var tr = $("<tr></tr>");
-            tr.appendTo(table);
-            for (var j = 0; j < cellCount; j++) {
-                var td = $("<td><img id='img" + (i * cellCount + j) + "' class='img-responsive'></td>");
-                td.appendTo(tr);
+    function addImages(id, num) {
+        $('#' + id).empty();
+        for (var i = 0; i < num; i++) {
+            if(i%3==0){
+                var row = $("<div class='row'></div>");
+            }
+            var div = $("<div class='col-xs-6 col-md-4'><a class='thumbnail'>");
+            var img = $("<img id='img" + (i) + "' class='img-responsive' style='height: 200px; width: 100%;'/>");
+            img.appendTo(div);
+            div.appendTo(row);
+            if((i+1)%3==0 || (i+1)==num ){
+                row = row.appendTo($("<div class='bs-example' data-example-id='simple-thumbnails'></div>"));
+                row.appendTo($("#result"));
+                $("<br>").appendTo($("#result"));
             }
         }
-        $("#createtable").append("</table>");
-    }
+    };
 </script>
 {% endblock %}
