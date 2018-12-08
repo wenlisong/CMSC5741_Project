@@ -9,7 +9,10 @@ import json
 import numpy as np
 import scipy.spatial.distance as dist
 
-from package.lsh.storage import storage
+try:
+    from package.lsh.storage import storage
+except:
+    from storage import storage
 
 try:
     from bitarray import bitarray

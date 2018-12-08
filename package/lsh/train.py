@@ -1,6 +1,10 @@
 import time
-from package.lsh.lshash import *
-from package.lsh.constants import *
+try:
+    from package.lsh.lshash import *
+    from package.lsh.constants import *
+except:
+    from lshash import *
+    from constants import *
 import numpy as np
 import os
 
