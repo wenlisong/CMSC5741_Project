@@ -18,21 +18,22 @@ def upload(request):
     elif request.method == "POST":
         img_obj = request.FILES.get('img')
         # save images
-        with open(os.path.join('static/data/cache', str(round(time.time()*1000))+'.'+img_obj.name.split('.')[-1]), 'wb') as f:
+        img_obj.name = str(round(time.time()*1000))+'.'+img_obj.name.split('.')[-1]
+        with open(os.path.join('static/data/cache', img_obj.name), 'wb') as f:
             for chunk in img_obj.chunks(chunk_size=1024):
                 f.write(chunk)
         #exract
-        feature_path = extract(img_obj.name)
-        if feature_path:
+        feature = extract(img_obj.name)
+        if feature is not None:
             res = {"status": "success"}
-            query_results = query(feature_path)
+            query_results = query(feature)
             res['query_results'] = query_results
         else:
             res = {"status": "fail"}
         return JsonResponse(res)
 
-def query(feature_path):
-    feature = np.loadtxt(feature_path)
+def query(feature):
+    # feature = np.loadtxt(feature_path)
     lsh = LSHash(HASH_SIZE, INPUT_DIMS, num_hashtables=NUMS_TABLE, storage_config=STORAGE_CONFIG,
              matrices_filename=MATRICES_NAME)
     result = lsh.query(feature, num_results=5, distance_func="norm")
@@ -49,14 +50,15 @@ def query(feature_path):
 
 def extract(image_name):
     cwd = os.getcwd() # CMSC5741_Project/website
-    img_directory_path = os.path.join(cwd, "static/data/images") # CMSC5741_Project/website/static/data/images
+    img_directory_path = os.path.join(cwd, "static/data/cache") # CMSC5741_Project/website/static/data/cache
     image_path = os.path.join(img_directory_path, image_name)
     image = face_recognition.load_image_file(image_path)  # load image
     features = face_recognition.face_encodings(image)
     if features:
         feature = features[0]
-        feature_path = cwd+'/static/data/feature/{0}.txt'.format(image_name)
-        np.savetxt(feature_path, feature, fmt='%f')
-        return feature_path
+        # feature_path = cwd+'/static/data/feature/{0}.txt'.format(image_name)
+        # np.savetxt(feature_path, feature, fmt='%f')
+        # return feature_path
+        return feature
     else:
-        return False
+        return None
