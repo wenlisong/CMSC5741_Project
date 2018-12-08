@@ -49,16 +49,22 @@ def query(feature):
     return images_info
 
 def extract(image_name):
+    print('extract start')
     cwd = os.getcwd() # CMSC5741_Project/website
     img_directory_path = os.path.join(cwd, "static/data/cache") # CMSC5741_Project/website/static/data/cache
     image_path = os.path.join(img_directory_path, image_name)
+    print(image_path)
     image = face_recognition.load_image_file(image_path)  # load image
+    print(image)
     features = face_recognition.face_encodings(image)
+    print(features)
     if features:
+        print('in.....')
         feature = features[0]
         # feature_path = cwd+'/static/data/feature/{0}.txt'.format(image_name)
         # np.savetxt(feature_path, feature, fmt='%f')
         # return feature_path
         return feature
     else:
+        print('find nothing')
         return None
