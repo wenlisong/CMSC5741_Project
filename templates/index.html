@@ -65,6 +65,7 @@
             success: function (data) {
                 if (data['status'] == "fail") {
                     alert("Don't find face in the image!");
+                    return false;
                 }
                 else if (data['status'] == "success") {
                     console.log(data)

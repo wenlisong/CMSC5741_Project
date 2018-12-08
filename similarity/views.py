@@ -6,6 +6,7 @@ import face_recognition
 import numpy as np
 from package.lsh.lshash import *
 from package.lsh.constants import *
+import time
 import pdb
 
 def index(request):
@@ -17,7 +18,7 @@ def upload(request):
     elif request.method == "POST":
         img_obj = request.FILES.get('img')
         # save images
-        with open(os.path.join('static/data/images', img_obj.name), 'wb') as f:
+        with open(os.path.join('static/data/cache', str(round(time.time()*1000))+'.'+img_obj.name.split('.')[-1]), 'wb') as f:
             for chunk in img_obj.chunks(chunk_size=1024):
                 f.write(chunk)
         #exract
