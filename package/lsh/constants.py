@@ -1,4 +1,4 @@
-HASH_SIZE = 16
+HASH_SIZE = 18
 INPUT_DIMS = 128
 NUMS_TABLE = 5
 STORAGE_CONFIG = {"redis": {"host": 'localhost', "port": 6379, "db": 0}}
