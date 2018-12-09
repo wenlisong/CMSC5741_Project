@@ -142,7 +142,7 @@
             processData: false,
             contentType: false,
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 if (data['status'] == "fail") {
                     alert("Don't find face in the image!");
                     return false;
@@ -171,7 +171,7 @@
             if (i % 3 == 0) {
                 var row = $("<div class='row'></div>");
             }
-            var div = $("<div class='col-xs-6 col-md-4'>/div>");
+            var div = $("<div class='col-xs-6 col-md-4'></div>");
             var img = $("<img id='img" + (i) + "' class='img-responsive img-thumbnail' style='height: 220px; width: 100%;'/>");
             var name = $("<a id='name" + (i) + "'/>");
             img.appendTo(div);
