@@ -1,5 +1,6 @@
 data/feature/*
 data/raw/*
+data/tmp/*
 .idea/
 .DS_Store
 .vscode/
