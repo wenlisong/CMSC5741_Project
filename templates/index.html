@@ -16,11 +16,9 @@
                     <h4 class="card-title">Photo you upload</h4>
                     <form id='image-form' method="POST">
                         {% csrf_token %}
-
                         <div class="input-group mb-3">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="uploadimg" aria-describedby="fileHelp"
-                                    onchange="showPreview(this)" alt="Upload" />
+                                <input type="file" class="custom-file-input" id="uploadimg" onchange="showPreview(this)" alt="Upload" />
                                 <label class="custom-file-label" for="uploadimg">Choose
                                     file</label>
                             </div>
@@ -44,11 +42,10 @@
 <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 <script type="text/javascript">
-    $('.custom-file-input').on('change', function () {
-        let fileName = $(this).val().split('\\').pop();
-        $(this).next('.custom-file-label').addClass("selected").html(fileName);
-    });
     function showPreview(source) {
+        var fileName = $('.custom-file-input').val().split('\\').pop();
+        $('.custom-file-input').next('.custom-file-label').addClass("selected").html(fileName);
+
         var file = source.files[0];
         if (file == null) {
             $('#origin_img').attr('src', '/static/images/img_avatar1.png');
@@ -129,7 +126,7 @@
     }
     // 
     $('#image-form').submit(function () {
-        var file_obj = $("input[name='img']")[0].files[0];
+        var file_obj = $("#uploadimg")[0].files[0];
         $('#suc').text('kadsf')
         var form_obj = new FormData();
         form_obj.append("img", file_obj);
@@ -145,6 +142,7 @@
             processData: false,
             contentType: false,
             success: function (data) {
+                console.log(data);
                 if (data['status'] == "fail") {
                     alert("Don't find face in the image!");
                     return false;
