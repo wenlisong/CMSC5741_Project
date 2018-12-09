@@ -147,6 +147,7 @@
                     var i = 0;
                     data['query_results'].forEach(elem => {
                         $("#img" + i).attr('src', elem['path']);
+                        $("#name" + i).text(elem['name']);
                         i++;
                     });
                 }
@@ -161,9 +162,11 @@
             if (i % 3 == 0) {
                 var row = $("<div class='row'></div>");
             }
-            var div = $("<div class='col-xs-6 col-md-4'><a class='thumbnail'>");
+            var div = $("<div class='col-xs-6 col-md-4'><a class='thumbnail'></a></div>");
             var img = $("<img id='img" + (i) + "' class='img-responsive' style='height: 200px; width: 100%;'/>");
+            var name = $("<a id='name" + (i) + "'/>");
             img.appendTo(div);
+            name.appendTo(div);
             div.appendTo(row);
             if ((i + 1) % 3 == 0 || (i + 1) == num) {
                 row = row.appendTo($("<div class='bs-example' data-example-id='simple-thumbnails'></div>"));
