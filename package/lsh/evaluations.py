@@ -60,6 +60,8 @@ def testcase(lsh):
         cost = time.time() - start
 
         total_count += 1
+        if total_count >= 5000:
+            break
         query_cost += cost
         if result:
             for rank, item in enumerate(result, start=1):
@@ -86,12 +88,12 @@ train_time = []
 accuracy = []
 hashtables = []
 # hashtable test
-for num_hashtables in range(2, 4):
+for num_hashtables in range(2, 11):
     hashtables.append(num_hashtables)
     print("Start test with num_hashtables=%d" % num_hashtables)
     # clear redis train records
     os.system("redis-cli FLUSHALL")
-    lsh = LSHash(HASH_SIZE, INPUT_DIMS, num_hashtables=num_hashtables, storage_config=STORAGE_CONFIG,
+    lsh = LSHash(16, INPUT_DIMS, num_hashtables=num_hashtables, storage_config=STORAGE_CONFIG,
                  matrices_filename=MATRICES_NAME, overwrite=True)
     testcase(lsh)
 
