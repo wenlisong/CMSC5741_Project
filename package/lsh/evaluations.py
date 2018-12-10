@@ -60,17 +60,15 @@ def testcase(lsh):
         cost = time.time() - start
 
         total_count += 1
-        if total_count >= 1000:
-            break
         query_cost += cost
-        if result:
-            for item in result:
-                img_info = json.loads(item[0]) # time-consume operation
-                img_path = img_info[1]
-                if file in img_path:
-                    correct_count += 1
-                    break
-        if total_count % 100 == 0:
+        # if result:
+        #     for item in result:
+        #         img_info = json.loads(item[0]) # time-consume operation
+        #         img_path = img_info[1]
+        #         if file in img_path:
+        #             correct_count += 1
+        #             break
+        if total_count % 1000 == 0:
             print("query total_count=%d, correct_count=%d" % (total_count, correct_count))
     query_time.append(query_cost)
     accuracy.append(float(correct_count) / float(total_count))
