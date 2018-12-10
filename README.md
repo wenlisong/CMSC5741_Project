@@ -11,6 +11,7 @@
 ## Unix
 
 * find file path under directory: `find ./ -name "xxx"`
+* find files count under directory: `find DIRNAME -type f | wc -l`
 
 ## Output
 
