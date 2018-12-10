@@ -65,13 +65,20 @@ def testcase(lsh):
             for item in result:
                 img_info = json.loads(item[0])
                 img_path = img_info[1]
-                if file in img_path:
+                if parse_prefix(img_path) == parse_prefix(file):
                     correct_count += 1
                     break
         if total_count % 100 == 0:
             print("query total_count=%d, correct_count=%d" % (total_count, correct_count))
     query_time.append(query_cost)
     accuracy.append(float(correct_count) / float(total_count))
+
+
+def parse_prefix(img_name):
+    prefix = ''
+    if img_name and img_name.split('_'):
+        prefix = img_name.split('_')[0]
+    return prefix
 
 
 def writerecords(records, file_path):
