@@ -41,7 +41,7 @@ def query(feature):
     # feature = np.loadtxt(feature_path)
     lsh = LSHash(HASH_SIZE, INPUT_DIMS, num_hashtables=NUMS_TABLE, storage_config=STORAGE_CONFIG,
                  matrices_filename=MATRICES_NAME)
-    result = lsh.query(feature, num_results=5, distance_func="norm")
+    result = lsh.query(feature, num_results=6, distance_func="norm")
     # Print Top Similar Images
     images_info = []
     for rank, item in enumerate(result, start=1):
