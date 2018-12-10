@@ -61,7 +61,7 @@ def testcase(lsh):
 
         total_count += 1
         query_cost += cost
-        if total_count >= 5000:
+        if total_count >= 1000:
             break
         # if result:
         #     for item in result:
