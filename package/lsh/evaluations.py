@@ -61,6 +61,8 @@ def testcase(lsh):
 
         total_count += 1
         query_cost += cost
+        if total_count >= 5000:
+            break
         # if result:
         #     for item in result:
         #         img_info = json.loads(item[0]) # time-consume operation
@@ -68,7 +70,7 @@ def testcase(lsh):
         #         if file in img_path:
         #             correct_count += 1
         #             break
-        if total_count % 1000 == 0:
+        if total_count % 100 == 0:
             print("query total_count=%d, correct_count=%d" % (total_count, correct_count))
     query_time.append(query_cost)
     accuracy.append(float(correct_count) / float(total_count))
@@ -102,9 +104,9 @@ writerecords(hashtables, os.path.join(output_dir, "hashtable_hashtables"))
 print("HashTables Test Done!")
 
 # hashsize test
-query_time = []
-train_time = []
-accuracy = []
+query_time.clear()
+train_time.clear()
+accuracy.clear()
 hashsizes = []
 for hashsize in range(10, 19):
     hashsizes.append(hashsize)
