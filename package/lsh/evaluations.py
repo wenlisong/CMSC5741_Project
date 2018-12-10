@@ -60,11 +60,9 @@ def testcase(lsh):
         cost = time.time() - start
 
         total_count += 1
-        if total_count >= 5000:
-            break
         query_cost += cost
         if result:
-            for rank, item in enumerate(result, start=1):
+            for item in result:
                 img_info = json.loads(item[0])
                 img_path = img_info[1]
                 if file in img_path:
