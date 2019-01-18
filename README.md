@@ -1,6 +1,9 @@
 # Large-scale Face Retrieval System based on Locality-Sensitive Hashing
 ![](static/images/WechatIMG287.jpeg)
 
+## Structure
+![](static/images/flow-chart.pdf)
+
 ## Redis
 
 * redis service start: `brew services start redis` or `redis-server /usr/local/etc/redis.conf`
