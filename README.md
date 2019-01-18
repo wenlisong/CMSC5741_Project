@@ -2,7 +2,7 @@
 ![](static/images/WechatIMG287.jpeg)
 
 ## Structure
-![](static/images/flow-chart.pdf)
+![](static/images/structure.png)
 
 ## Redis
 
