@@ -1,14 +1,14 @@
 ## Large-scale Face Retrieval System based on Locality-Sensitive Hashing
-## Abstract
+### Abstract
 Face retrieval is one of the prime issues in big data analysis and machine learning. With the availability of powerful parallel ma- chines and massive increase in training data, deep convolutional neural networks (CNNs) achieve great progress on face recognition. However, the progress of for face retrieval for large-scale datasets is still a challenging problem due to the huge number of face im- ages. In this project, we proposed a novel system based on deep learning and LSH to achieve large-scale face retrieval.After prepro- cessing image to extract feature, we took a in-depth research into the state-of-arts LSH frameworks for different similarity metrics and chose the best method to tackle our practical problem.Finally, we implemented a website to give a intuitive interpretation of our results.
 
-[Report](static/images/report.pdf)
+For more details, please refers to our [Project Report](static/images/report.pdf)
 ![](static/images/WechatIMG287.jpeg)
 
-## Structure
+### Structure
 ![](static/images/structure.png)
 
-## Redis
+### Redis
 
 * redis service start: `brew services start redis` or `redis-server /usr/local/etc/redis.conf`
 * redis service detect: `redis-cli ping`
@@ -16,14 +16,14 @@ Face retrieval is one of the prime issues in big data analysis and machine learn
 * redis get all keys: `redis-cli keys "*"`
 * redis delete all data: `redis-cli FLUSHALL`
 
-## Unix
+### Unix
 
 * find file path under directory: `find ./ -name "xxx"`
 * find files count under directory: `find DIRNAME -type f | wc -l`
 
-## Output
+### Output
 
-### Hash Test Output
+#### Hash Test Output
 
 ```
 The sample hash: ['0011100010', '0101101100', '1010101110', '0101011111', '1101000101']
@@ -34,7 +34,7 @@ Sample sample.jpg hash in directory:['0011100010', '0101101100', '1010101110', '
 Sample query_sample_01_944600.jpg hash in directory:['0011100010', '0101101100', '1010101110', '0100011111', '1101000100']
 ```
 
-### Query Output
+#### Query Output
 
 ```
 Start extract face image and query:query_sample_02_944600.jpg
