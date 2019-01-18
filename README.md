@@ -1,4 +1,5 @@
 # Large-scale Face Retrieval System based on Locality-Sensitive Hashing
+[Report](static/images/report.pdf)
 ![](static/images/WechatIMG287.jpeg)
 
 ## Structure
