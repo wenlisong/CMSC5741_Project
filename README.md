@@ -1,4 +1,5 @@
-# CMSC5741_Project
+# Large-scale Face Retrieval System based on Locality-Sensitive Hashing
+![](static/images/WechatIMG287.jpeg)
 
 ## Redis
 
