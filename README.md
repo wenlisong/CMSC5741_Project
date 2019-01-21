@@ -6,7 +6,7 @@ For more details, please refers to our [Project Report](static/images/report.pdf
 ![](static/images/WechatIMG287.jpeg)
 
 ### Structure
-![](static/images/exampl-1.png)
+![](static/images/exampl-1.jpg)
 
 ### Redis
 
