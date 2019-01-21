@@ -3,10 +3,10 @@
 Face retrieval is one of the prime issues in big data analysis and machine learning. With the availability of powerful parallel ma- chines and massive increase in training data, deep convolutional neural networks (CNNs) achieve great progress on face recognition. However, the progress of for face retrieval for large-scale datasets is still a challenging problem due to the huge number of face im- ages. In this project, we proposed a novel system based on deep learning and LSH to achieve large-scale face retrieval.After prepro- cessing image to extract feature, we took a in-depth research into the state-of-arts LSH frameworks for different similarity metrics and chose the best method to tackle our practical problem.Finally, we implemented a website to give a intuitive interpretation of our results.
 
 For more details, please refers to our [Project Report](static/images/report.pdf)
-![](static/images/WechatIMG287.jpeg)
+![](static/images/example-1.jpg)
 
 ### Structure
-![](static/images/example-1.jpg)
+![](static/images/structure.jpg)
 
 ### Redis
 
